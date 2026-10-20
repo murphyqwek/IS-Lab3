@@ -40,3 +40,4 @@ out/
 .env
 gradle/wrapper/gradle-wrapper.jar
 frontend/frontend/tsconfig.app.json
+src/main/resources/static/*

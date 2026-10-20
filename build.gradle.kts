@@ -66,16 +66,27 @@ tasks.register<Exec>("dockerComposeDown") {
 }
 
 tasks.register<Exec>("compileFrontend") {
-    group = "infrastructre"
-    description = "Compile Angular and copy to resources"
+    group = "infrastructure"
+    description = "Compile Angular"
 
     workingDir = file("frontend/frontend")
 
-    commandLine(
-        "cmd",
-        "/c",
-        "npm",
-        "run",
-        "build",
+    environment(
+        "PATH",
+        "/home/murphyqwek/.nvm/versions/node/v24.21.0/bin:" +
+                System.getenv("PATH")
     )
+
+    commandLine("npm", "run", "build")
+}
+
+tasks.register<Copy>("copyFrontend") {
+    dependsOn("compileFrontend")
+
+    from("frontend/frontend/dist/frontend/browser")
+    into("src/main/resources/static")
+}
+
+tasks.named("processResources") {
+    dependsOn("copyFrontend")
 }
