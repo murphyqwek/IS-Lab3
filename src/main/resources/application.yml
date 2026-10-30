@@ -13,12 +13,16 @@ spring:
       deserialization:
         fail-on-unknown-properties: true
     datasource:
+      type: org.apache.commons.dbcp2.BasicDataSource
       url: ${POSTGRES_URL}
       username: ${POSTGRES_USERNAME}
       password: ${POSTGRES_PASSWORD}
-      hikari:
-        maximum-pool-size: 2
-        minimum-idle: 1
+      dbcp2:
+        initial-size: 1
+        max-total: 2
+        min-idle: 1
+        max-idle: 2
+        test-on-borrow: true
 
     jpa:
       hibernate:

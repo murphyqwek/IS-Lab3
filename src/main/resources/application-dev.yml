@@ -16,9 +16,8 @@ spring:
     url: jdbc:postgresql://localhost:5433/studs
     username: myuser
     password: mypassword
-    hikari:
-      maximum-pool-size: 3
-      minimum-idle: 1
+    dbcp2:
+      max-total: 3
 
   jpa:
     hibernate:
