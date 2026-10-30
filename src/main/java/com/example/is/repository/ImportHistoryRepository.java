@@ -1,8 +1,10 @@
 package com.example.is.repository;
 
 import com.example.is.entity.ImportHistory;
+import jakarta.persistence.QueryHint;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
@@ -18,6 +20,10 @@ public interface ImportHistoryRepository extends JpaRepository<ImportHistory, Lo
         FROM ImportHistory h
         ORDER BY h.createdAt DESC, h.id DESC
     """)
+    @QueryHints({
+            @QueryHint(name = "org.hibernate.cacheable", value = "true"),
+            @QueryHint(name = "org.hibernate.cacheRegion", value = "import-history")
+    })
     List<ImportHistory> findFirstPage(Pageable pageable);
 
     @Query("""
@@ -31,6 +37,10 @@ public interface ImportHistoryRepository extends JpaRepository<ImportHistory, Lo
             )
         ORDER BY h.createdAt DESC, h.id DESC
     """)
+    @QueryHints({
+            @QueryHint(name = "org.hibernate.cacheable", value = "true"),
+            @QueryHint(name = "org.hibernate.cacheRegion", value = "import-history")
+    })
     List<ImportHistory> findNextPage(
             @Param("cursorCreatedAt") Instant cursorCreatedAt,
             @Param("cursorId") Long cursorId,
@@ -43,6 +53,10 @@ public interface ImportHistoryRepository extends JpaRepository<ImportHistory, Lo
         WHERE h.username = :username
         ORDER BY h.createdAt DESC, h.id DESC
     """)
+    @QueryHints({
+            @QueryHint(name = "org.hibernate.cacheable", value = "true"),
+            @QueryHint(name = "org.hibernate.cacheRegion", value = "import-history")
+    })
     List<ImportHistory> findFirstPageUser(
             @Param("username") String username,
             Pageable pageable
@@ -62,6 +76,10 @@ public interface ImportHistoryRepository extends JpaRepository<ImportHistory, Lo
             )
         ORDER BY h.createdAt DESC, h.id DESC
     """)
+    @QueryHints({
+            @QueryHint(name = "org.hibernate.cacheable", value = "true"),
+            @QueryHint(name = "org.hibernate.cacheRegion", value = "import-history")
+    })
     List<ImportHistory> findNextPageUser(
             @Param("cursorCreatedAt") Instant cursorCreatedAt,
             @Param("cursorId") Long cursorId,

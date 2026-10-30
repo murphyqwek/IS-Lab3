@@ -1,10 +1,14 @@
 package com.example.is.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import java.time.Instant;
 
 @Entity
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class ImportHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
