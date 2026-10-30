@@ -16,6 +16,8 @@ java {
     }
 }
 
+extra["infinispan.version"] = "16.3.1"
+
 repositories {
     mavenCentral()
 }
@@ -26,13 +28,15 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-webmvc")
     implementation("org.springframework.boot:spring-boot-starter-websocket")
     implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-aspectj")
     implementation("org.apache.commons:commons-dbcp2")
+    runtimeOnly("net.bytebuddy:byte-buddy")
     runtimeOnly("org.postgresql:postgresql")
     testImplementation("org.springframework.boot:spring-boot-starter-data-jpa-test")
     testImplementation("org.springframework.boot:spring-boot-starter-validation-test")
     testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-    implementation("org.infinispan:infinispan-hibernate-cache-v66:<версия>")
+    implementation("org.infinispan:infinispan-hibernate-cache-v66")
 }
 
 tasks.withType<Test> {
@@ -73,13 +77,12 @@ tasks.register<Exec>("compileFrontend") {
 
     workingDir = file("frontend/frontend")
 
-    environment(
-        "PATH",
-        "/home/murphyqwek/.nvm/versions/node/v24.21.0/bin:" +
-                System.getenv("PATH")
-    )
-
-    commandLine("npm", "run", "build")
+    val npmExecutable = if (System.getProperty("os.name").startsWith("Windows", ignoreCase = true)) {
+        "npm.cmd"
+    } else {
+        "npm"
+    }
+    commandLine(npmExecutable, "run", "build")
 }
 
 tasks.register<Copy>("copyFrontend") {
