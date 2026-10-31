@@ -13,8 +13,8 @@ minio:
 spring:
   servlet:
     multipart:
-      max-file-size: 1MB
-      max-request-size: 2MB
+      max-file-size: 32MB
+      max-request-size: 33MB
   jackson:
     deserialization:
       fail-on-unknown-properties: true
