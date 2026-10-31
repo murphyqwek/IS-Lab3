@@ -12,5 +12,23 @@ services:
       - postgres_data:/var/lib/postgresql/
     restart: unless-stopped
 
+  minio:
+    build:
+      dockerfile: src/main/java/com/example/is/minio/Dockerfile
+    image: minio:local
+    container_name: minio-container
+
+    environment:
+      MINIO_ROOT_USER: miniouser
+      MINIO_ROOT_PASSWORD: miniopassword
+
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+    restart: unless-stopped
+
 volumes:
   postgres_data:
+  minio_data:

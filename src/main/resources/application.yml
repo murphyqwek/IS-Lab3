@@ -4,6 +4,11 @@ server:
     session:
       timeout: 30m
 
+minio:
+  endpoint: ${MINIO_URL}
+  access-key: ${MINIO_USERNAME}
+  secret-key: ${MINIO_PASSWORD}
+
 spring:
     servlet:
       multipart:

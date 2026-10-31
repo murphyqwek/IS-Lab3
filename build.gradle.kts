@@ -37,6 +37,7 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     implementation("org.infinispan:infinispan-hibernate-cache-v66")
+    implementation("io.minio:minio:9.0.3")
 }
 
 tasks.withType<Test> {

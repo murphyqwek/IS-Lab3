@@ -4,6 +4,11 @@ server:
     session:
       timeout: 30m
 
+minio:
+  endpoint: http://localhost:9000
+  access-key: miniouser
+  secret-key: miniopassword
+
 spring:
   servlet:
     multipart:
