@@ -17,7 +17,7 @@ public class UploadPartEntity {
     private UploadFileEntity upload;
 
     @Column(name = "part_number", nullable = false)
-    private int partNumber;
+    private long partNumber;
 
     // Null while the part is reserved but has not been confirmed by storage.
     @Column(nullable = true)
@@ -38,11 +38,11 @@ public class UploadPartEntity {
         this.upload = upload;
     }
 
-    public int getPartNumber() {
+    public long getPartNumber() {
         return partNumber;
     }
 
-    public void setPartNumber(int partNumber) {
+    public void setPartNumber(long partNumber) {
         this.partNumber = partNumber;
     }
 
